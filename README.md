@@ -29,7 +29,7 @@
 1. Downloading RNA-seq data. <br />
 2. Performing fastQC and md5sum checking.<br />
 3. Downloading spaceranger and reference mouse genome from 10x Genomics webiste. - 2021-06-07<br />
-4. Uploading the data, spaceranger and reference genome to server. Checking md5sums of them all. - 2021-06-08<br />
+4. Uploading the data, spaceranger and reference genome to server. md5sum checked on spaceranger. Could not execute 'spaceranger' despite prepending. - 2021-06-08<br />
 
 ### Software versions
 * spaceranger v1.2.2
