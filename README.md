@@ -26,10 +26,10 @@
 |D|S3647Nr4.2|Read 2|Sequence Duplication Levels, Per sequence GC content, Overrepresented sequences|
 
 <h2>Labnotes</h2>
-1. Downloading RNA-seq data. <br />
-2. Performing fastQC and md5sum checking.<br />
-3. Downloading spaceranger and reference mouse genome from 10x Genomics webiste. - 2021-06-07<br />
-4. Uploading the data, spaceranger and reference genome to server. md5sum checked on spaceranger and reference genome mm10 (compliant). Unpacked (`tar`) both genome and spaceranger to opt/. Run `spaceranger sitecheck` and `spaceranger testrun` successfully. - 2021-06-08<br />
+1. Downloaded RNA-seq data. <br />
+2. Performed fastQC and md5sum checking.<br />
+3. Downloaded spaceranger and reference mouse genome from 10x Genomics webiste. - 2021-06-07<br />
+4. Uploaded the data, spaceranger and reference genome to server. md5sum checked on spaceranger and reference genome mm10 (compliant). Unpacked (`tar`) both genome and spaceranger to opt/. Prepended spaceranger to $PATH on the server. Run `spaceranger sitecheck` and `spaceranger testrun` successfully. - 2021-06-08<br />
 
 ### Software versions
 * spaceranger v1.2.2
