@@ -29,7 +29,7 @@
 1. Downloaded RNA-seq data. <br />
 2. Performed fastQC and md5sum checking.<br />
 3. Downloaded spaceranger and reference mouse genome from 10x Genomics webiste. - 2021-06-07<br />
-4. Uploaded the data, spaceranger and reference genome to server. md5sum checked on spaceranger and reference genome mm10 (compliant). Unpacked (`tar`) both genome and spaceranger to opt/. Prepended spaceranger to $PATH on the server. Run `spaceranger sitecheck` and `spaceranger testrun` successfully. - 2021-06-08<br />
+4. Uploaded the data, spaceranger and reference genome to server. md5sum checked on spaceranger and reference genome mm10 (compliant). Unpacked (`tar`) both genome and spaceranger to opt/. Prepended spaceranger to $PATH on the server. Ran `spaceranger sitecheck` and `spaceranger testrun` successfully. - 2021-06-08<br />
 
 ### Software versions
 * spaceranger v1.2.2
