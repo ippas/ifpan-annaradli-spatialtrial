@@ -24,3 +24,14 @@
 |C|S3647Nr3.2|Read 2|Sequence Duplication Levels, Per sequence GC content, Overrepresented sequences|
 |D|S3647Nr4.1|Read 1|Sequence Duplication Levels|
 |D|S3647Nr4.2|Read 2|Sequence Duplication Levels, Per sequence GC content, Overrepresented sequences|
+
+<h2>Labnotes</h2>
+1. Downloading RNA-seq data.
+2. Performing fastQC and md5sum checking.
+3. Downloading spaceranger and reference mouse genome from 10x Genomics webiste. - 2021-06-07
+4. Uploading the data, spaceranger and reference genome to server. Checking md5sums of them all. - 2021-06-08
+
+### Software versions
+* spaceranger v1.2.2
+* mouse genome mm10 Reference - 2020-A 
+* fastQC v0.11.8
