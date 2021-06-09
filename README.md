@@ -46,7 +46,7 @@ S3647Nr3.2.fastq.gz -> S3647Nr3_S3_L001_R2_001.fastq.gz
 S3647Nr4.1.fastq.gz -> S3647Nr4_S4_L001_R1_001.fastq.gz
 S3647Nr4.2.fastq.gz -> S3647Nr4_S4_L001_R2_001.fastq.gz <br />
 
-Prepended spaceranger again. `spaceranger sitecheck` ran successfully. Ran first analysis on S3647Nr1 sample (A) - start 13:08, finish.
+Prepended spaceranger again. `spaceranger sitecheck` ran successfully. Ran first analysis on S3647Nr1 sample (A) - start 13:08, finish 14:19.
 
 
 ### Software 
@@ -61,4 +61,6 @@ Prepended spaceranger again. `spaceranger sitecheck` ran successfully. Ran first
 * STAR: 2.7.2a
 * samtools 1.10
 * htslib 1.10.2
+* Martian Runtime v4.0.2
+
 
