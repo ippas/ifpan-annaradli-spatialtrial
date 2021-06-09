@@ -37,13 +37,13 @@ Uploaded the data, spaceranger and reference genome to server. md5sum checked on
 
 ### 2021-06-09
 md5sum checked on data files (.fastq.gz) uploaded to the server. Renamed the fastq files in the following (Illumina) [convention](https://support.illumina.com/help/BaseSpace_OLH_009008/Content/Source/Informatics/BS/NamingConvention_FASTQ-files-swBS.htm): <br /> 
-S3647Nr1.1.fastq.gz -> S3647Nr1_S1_L001_R1_001.fastq.gz
-S3647Nr1.2.fastq.gz -> S3647Nr1_S1_L001_R2_001.fastq.gz
-S3647Nr2.1.fastq.gz -> S3647Nr2_S2_L001_R1_001.fastq.gz
-S3647Nr2.2.fastq.gz -> S3647Nr2_S2_L001_R2_001.fastq.gz
-S3647Nr3.1.fastq.gz -> S3647Nr3_S3_L001_R1_001.fastq.gz
-S3647Nr3.2.fastq.gz -> S3647Nr3_S3_L001_R2_001.fastq.gz
-S3647Nr4.1.fastq.gz -> S3647Nr4_S4_L001_R1_001.fastq.gz
+S3647Nr1.1.fastq.gz -> S3647Nr1_S1_L001_R1_001.fastq.gz <br />
+S3647Nr1.2.fastq.gz -> S3647Nr1_S1_L001_R2_001.fastq.gz <br />
+S3647Nr2.1.fastq.gz -> S3647Nr2_S2_L001_R1_001.fastq.gz <br />
+S3647Nr2.2.fastq.gz -> S3647Nr2_S2_L001_R2_001.fastq.gz <br />
+S3647Nr3.1.fastq.gz -> S3647Nr3_S3_L001_R1_001.fastq.gz <br />
+S3647Nr3.2.fastq.gz -> S3647Nr3_S3_L001_R2_001.fastq.gz <br />
+S3647Nr4.1.fastq.gz -> S3647Nr4_S4_L001_R1_001.fastq.gz <br />
 S3647Nr4.2.fastq.gz -> S3647Nr4_S4_L001_R2_001.fastq.gz <br />
 
 Prepended spaceranger again. `spaceranger sitecheck` ran successfully. 
