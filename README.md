@@ -36,7 +36,18 @@ Downloaded spaceranger and reference mouse genome from 10x Genomics webiste.<br 
 Uploaded the data, spaceranger and reference genome to server. md5sum checked on spaceranger and reference genome mm10 (compliant). Unpacked (`tar`) both genome and spaceranger to opt/. Prepended spaceranger to $PATH on the server. Ran `spaceranger sitecheck` and `spaceranger testrun` successfully. - <br />
 
 ### 2021-06-09
-md5sum checked on data files (.fastq.gz) uploaded to the server.
+md5sum checked on data files (.fastq.gz) uploaded to the server. Renamed the fastq files in the following (Illumina) [convention](https://support.illumina.com/help/BaseSpace_OLH_009008/Content/Source/Informatics/BS/NamingConvention_FASTQ-files-swBS.htm): <br /> 
+S3647Nr1.1.fastq.gz -> S3647Nr1_S1_L001_R1_001.fastq.gz
+S3647Nr1.2.fastq.gz -> S3647Nr1_S1_L001_R2_001.fastq.gz
+S3647Nr2.1.fastq.gz -> S3647Nr2_S2_L001_R1_001.fastq.gz
+S3647Nr2.2.fastq.gz -> S3647Nr2_S2_L001_R2_001.fastq.gz
+S3647Nr3.1.fastq.gz -> S3647Nr3_S3_L001_R1_001.fastq.gz
+S3647Nr3.2.fastq.gz -> S3647Nr3_S3_L001_R2_001.fastq.gz
+S3647Nr4.1.fastq.gz -> S3647Nr4_S4_L001_R1_001.fastq.gz
+S3647Nr4.2.fastq.gz -> S3647Nr4_S4_L001_R2_001.fastq.gz <br />
+
+Prepended spaceranger again. `spaceranger sitecheck` ran successfully. Ran first analysis on S3647Nr1 sample (A) - start 13:08, finish.
+
 
 ### Software 
 * spaceranger v1.2.2
@@ -44,3 +55,10 @@ md5sum checked on data files (.fastq.gz) uploaded to the server.
 * fastQC v0.11.8
 * md5sum v8.28
 * Loupe Browser v5.0
+* mrc: v4.0.2
+* mrp: v4.0.2 
+* Anaconda: numpy: 1.15.4, scipy: 1.1.0, pysam: 0.16.0.1, h5py: 2.8.0, pandas: 0.24.2
+* STAR: 2.7.2a
+* samtools 1.10
+* htslib 1.10.2
+
