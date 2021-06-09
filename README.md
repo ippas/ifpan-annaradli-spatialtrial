@@ -46,8 +46,9 @@ S3647Nr3.2.fastq.gz -> S3647Nr3_S3_L001_R2_001.fastq.gz
 S3647Nr4.1.fastq.gz -> S3647Nr4_S4_L001_R1_001.fastq.gz
 S3647Nr4.2.fastq.gz -> S3647Nr4_S4_L001_R2_001.fastq.gz <br />
 
-Prepended spaceranger again. `spaceranger sitecheck` ran successfully. Ran first analysis on S3647Nr1 sample (A) - start 13:08, finish 14:19.
-
+Prepended spaceranger again. `spaceranger sitecheck` ran successfully. 
+Ran first analysis on S3647Nr1 sample (A) - start 13:08, finish 14:19.
+Ran analyses on rest of the samples.
 
 ### Software 
 * spaceranger v1.2.2
