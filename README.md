@@ -50,12 +50,16 @@ Prepended spaceranger again. `spaceranger sitecheck` ran successfully.
 Ran first analysis on S3647Nr1 sample (A) - start 13:08, finish 14:19.
 Ran analyses on rest of the samples.
 
+### 2021-06-10
+Prepended spaceranger again.`spaceranger sitecheck` ran successfully. 
+Ran `spaceranger aggr`on 4 samples - start 14:26 , finish 14:41.
+
 ### Software 
 * spaceranger v1.2.2
 * mouse genome mm10 Reference - 2020-A 
 * fastQC v0.11.8
 * md5sum v8.28
-* Loupe Browser v5.0
+* Loupe Browser v5.0/v5.1.0
 * mrc: v4.0.2
 * mrp: v4.0.2 
 * Anaconda: numpy: 1.15.4, scipy: 1.1.0, pysam: 0.16.0.1, h5py: 2.8.0, pandas: 0.24.2
