@@ -69,3 +69,17 @@ Ran `spaceranger aggr`on 4 samples - start 14:26 , finish 14:41.
 * Martian Runtime v4.0.2
 
 
+### Analysis Mateusz
+Merging bam together:
+```
+samtools merge /tmp/merged_four_samples.bam results/runs/S3647Nr1/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u5a05c0aed8/files/pos_sorted_single_sample.bam results/runs/S3647Nr2/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u6bdec0ddab/files/pos_sorted_single_sample.bam results/runs/S3647Nr3/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u6e48c0deab/files/pos_sorted_single_sample.bam results/runs/S3647Nr4/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u70d8c0def4/files/pos_sorted_single_sample.bam
+```
+
+
+Performing an analysis in MACS3:
+```
+
+```
+
+
+
