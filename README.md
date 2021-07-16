@@ -74,11 +74,19 @@ Merging bam together:
 ```
 samtools merge /tmp/merged_four_samples.bam results/runs/S3647Nr1/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u5a05c0aed8/files/pos_sorted_single_sample.bam results/runs/S3647Nr2/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u6bdec0ddab/files/pos_sorted_single_sample.bam results/runs/S3647Nr3/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u6e48c0deab/files/pos_sorted_single_sample.bam results/runs/S3647Nr4/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u70d8c0def4/files/pos_sorted_single_sample.bam
 ```
+Sorting bam file:
+```
+samtools sort DATA/merged_four_samples.bam -o DATA/merged_four_samples_sorted.bam
+```
 
 
 Performing an analysis in MACS3:
 ```
+docker run -u 1003:1002 -v $PWD:/data/ ubuntu:macs3 macs3 callpeak -t /data/DATA/merged_four_samples_sorted.bam -n merged_samples_sorted --outdir /data/DATA/MACS3_RESULTS/sorted_bam
+```
 
+```
+bedtools closest -a DATA/peaks_without_ltr.bed -b DATA/mart_export_sorted.bed 2>/dev/null | grep Oprm1 | uniq
 ```
 
 
