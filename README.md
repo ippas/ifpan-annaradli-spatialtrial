@@ -85,11 +85,21 @@ docker run -u 1003:1002 -v $PWD:/data/ ubuntu:macs3 macs3 callpeak -t /data/DATA
 Annotate peaks:
 
 ```
-{ bedtools intersect -v -a DATA/MACS3_RESULTS/merged_samples_peaks.narrowPeak  -b DATA/variation_and_repeats.bed 2>/dev/null | awk '{print $0"\twithout_ltr"}' ; bedtools intersect -a DATA/MACS3_RESULTS/merged_samples_peaks.narrowPeak  -b DATA/variation_and_repeats.bed 2>/dev/null | awk '{print $0"\twith_ltr"}' ; } > DATA/peaks_annotate.bed
+{ bedtools intersect -v -a DATA/MACS3_RESULTS/merged_samples_peaks.narrowPeak  -b DATA/variation_and_repeats.bed -u 2>/dev/null | awk '{print $0"\twithout_ltr"}' ; bedtools intersect -a DATA/MACS3_RESULTS/merged_samples_peaks.narrowPeak  -b DATA/variation_and_repeats.bed -u 2>/dev/null | awk '{print $0"\twith_ltr"}' ; } > DATA/peaks_annotate.bed
+
+bedtools sort -i DATA/peaks_annotate.bed > DATA/peaks_annotate_sorted.bed 
+
 
 bedtools sort -i DATA/mart_export.bed > DATA/mart_export_sorted.bed
 
 bedtools closest -a DATA/peaks_annotate.bed -b DATA/mart_export_sorted.bed 2>/dev/null > DATA/peaks2gtf.bed
+
+cat peaks_annotate_sorted.bed | sed 's/\t\./\t\+/' > peaks_annotate_positive_strand.bed
+cat peaks_annotate_sorted.bed | sed 's/\t\./\t\-/' > peaks_annotate_negative_strand.bed
+
+
+
+
 ```
 
 
