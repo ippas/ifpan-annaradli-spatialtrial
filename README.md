@@ -99,6 +99,38 @@ cat peaks_annotate_sorted.bed | sed 's/\t\./\t\-/' > peaks_annotate_negative_str
 
 
 
+bedtools intersect -u -a DATA/MACS3_RESULTS/merged_samples_peaks.narrowPeak -b DATA/variation_and_repeats.bed  2>/dev/null | awk '{print $0"\twith_ltr"}' > DATA/peaks_with_ltr.bed
+bedtools intersect -a DATA/MACS3_RESULTS/merged_samples_peaks.narrowPeak  -b DATA/variation_and_repeats.bed -u 2>/dev/null | awk '{print $0"\twithout_ltr"}' > DATA/peaks_without_ltr.bed
+bedtools closest -a DATA/peaks_without_ltr.bed -b DATA/mart_export_sorted.bed 2>/dev/null > DATA/peaks2gtf_without_ltr.bed
+
+bedtools intersect -u -a DATA/MACS3_RESULTS/merged_samples_peaks.narrowPeak -b DATA/variation_and_repeats.bed  2>/dev/null | awk '{print $0"\tltr"}' > DATA/peaks_ltr.bed
+bedtools intersect -v -a DATA/MACS3_RESULTS/merged_samples_peaks.narrowPeak -b DATA/variation_and_repeats.bed  2>/dev/null | awk '{print $0"\tgene"}' > DATA/peaks_gene.bed
+
+
+
+
+
+ samtools index merged_four_samples_sorted.bam 
+  samtools view -b merged_four_samples_sorted.bam "chr10:7038567-7033897"
+  samtools index oprm.bam
+bedtools coverage -a oprm1.plus.bed -b oprm.bam -s
+bedtools coverage -a oprm1.minus.bed -b oprm.bam -s
+
+paste oprm1.plus.coverage.bed oprm1.minus.coverage.bed | cut -f12,27 | awk '{print $1"\t"$2"\t+"$1-$2}' | awk 'BEGIN{FS=OFS"\t"} {gsub(/+-[0-9]*/, "-" $3)} 1 {gsub(/+[0-9]*/, "+" $3)} 1'
+
+ samtools view -b -f 16 oprm.bam > oprm.minus.bam
+ samtools view -b -F 16 oprm.bam > oprm.plus.bam
+ samtools index oprm.plus.bam
+ samtools index oprm.minus.bam 
+ samtools bedcov oprm.bed oprm.plus.bam
+
+
+
+
+
+
+
+
 
 ```
 
