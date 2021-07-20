@@ -124,13 +124,11 @@ paste oprm1.plus.coverage.bed oprm1.minus.coverage.bed | cut -f12,27 | awk '{pri
  samtools index oprm.minus.bam 
  samtools bedcov oprm.bed oprm.plus.bam
 
+samtools view -b -f 16 merged_four_samples_sorted.bam > merged_samples_minus.bam
+samtools view -b -F 16 merged_four_samples_sorted.bam > merged_samples_plus.bam
 
-
-
-
-
-
-
+samtools index merged_samples_minus.bam
+samtools index merged_samples_plus.bam
 
 ```
 
