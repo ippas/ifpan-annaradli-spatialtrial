@@ -130,14 +130,10 @@ spaceranger mkref --genome=oprm1_ref_without_strand --fasta=opt/refdata-gex-mm10
 ```
 
 ```
-bedtools closest -a peaks_gene_strand.bed -b mart_export_
+bedtools closest -a peaks_gene_strand.bed -b mart_export_sorted.bed 2>/dev/null > peaks2gtf_gene.bed
 
 
-
-
-
-
-.bed  2>/dev/null | tail +142 | awk '{sub("$", "+"$18)}; 1' | awk 'BEGIN{FS=OFS"\t"} {gsub(/-1\+/, "-" $18)} 1 {gsub(/1\+/, "+" $18)} 1' | awk '{print $0, $6==$17}' | sed 's/ /\t/' | cut -f18 | awk '{s+=$1} END {print s}'
+peaks2gtf_gene.bed | tail +142 | awk '{sub("$", "+"$18)}; 1' | awk 'BEGIN{FS=OFS"\t"} {gsub(/-1\+/, "-" $18)} 1 {gsub(/1\+/, "+" $18)} 1' | awk '{print $0, $6==$17}' | sed 's/ /\t/' | cut -f18 | awk '{s+=$1} END {print s}'
 ```
 
 test
