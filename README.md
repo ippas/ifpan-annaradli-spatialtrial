@@ -113,9 +113,9 @@ paste peaks_gene_coverage.plus.bed peaks_gene_coverage.minus.bed |
     awk 'BEGIN{FS=OFS"\t"} {gsub(/+-[0-9]*/, "-" $3)} 1 {gsub(/+[0-9]*/, "+" $3)} 1' |      
     awk -F"\t" '{OFS=FS}{ $6=$25 ; print   }' |      
     cut -f1-11  > peaks_gene_strand.bed
-    
-bedtools closest -a peaks_ltr_strand.bed -b mart_export_sorted.bed  2>/dev/null > peaks2gtf_ltr.bed
-bedtools closest -a peaks_gene_strand.bed -b mart_export_sorted.bed  2>/dev/null > peaks2gtf_gene.bed
+
+bedtools closest -a peaks_gene_strand.bed -b mart_export_sorted.bed -t first 2>/dev/null > peaks2gtf_gene.bed
+bedtools closest -a peaks_ltr_strand.bed -b mart_export_sorted.bed -t first 2>/dev/null > peaks2gtf_ltr.bed
     
 samtools bedcov peaks_gene.bed merged_samples_minus.bam > peaks_gene_coverage.minus.bed
 samtools bedcov peaks_gene.bed merged_samples_plus.bam > peaks_gene_coverage.plus.bed
