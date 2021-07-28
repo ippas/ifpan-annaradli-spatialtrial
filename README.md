@@ -76,14 +76,15 @@ samtools merge /tmp/merged_four_samples.bam results/runs/S3647Nr1/SPATIAL_RNA_CO
 ```
 
 ```
-samtools sort /DATA/merged_four_samples.bam -o /DATA/merget_four_samples_sorted.bam
+samtools sort /data/merged_four_samples.bam -o /DATA/merget_four_samples_sorted.bam
+samtools index /data/merged_four_samples.bam
 
 ```
 
 Performing an analysis in MACS3:
 ```
-docker run -u 1003:1002 -v $PWD:/data/ ubuntu:macs3 macs3 callpeak -t /data/DATA/merged_four_samples_sorted.bam
--n merged_samples_sorted --outdir /data/DATA/MACS3_RESULTS/sorted_bam
+docker run -u 1003:1002 -v $PWD:/data/ ubuntu:macs3 macs3 callpeak -t /data/data/merged_four_samples_sorted.bam
+-n merged_samples_sorted --outdir /data/data/macs3_results/sorted_bam
 ```
 
 
