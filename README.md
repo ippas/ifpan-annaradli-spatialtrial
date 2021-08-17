@@ -77,7 +77,7 @@ samtools merge /tmp/merged_four_samples.bam results/runs/S3647Nr1/SPATIAL_RNA_CO
 
 ```
 samtools sort /data/merged_four_samples.bam -o /DATA/merget_four_samples_sorted.bam
-samtools index /data/merged_four_samples.bam
+samtools index /data/merged_four_samples_sorted.bam
 
 ```
 
@@ -89,69 +89,29 @@ docker run -u 1003:1002 -v $PWD:/data/ ubuntu:macs3 macs3 callpeak -t /data/data
 
 
 Annotate peaks:
-
 ```
-bedtools intersect -u -a DATA/MACS3_RESULTS/merged_samples_peaks.narrowPeak -b DATA/variation_and_repeats.bed  2>/dev/null | awk '{print $0"\tltr"}' > DATA/peaks_ltr.bed
-bedtools intersect -v -a DATA/MACS3_RESULTS/merged_samples_peaks.narrowPeak -b DATA/variation_and_repeats.bed  2>/dev/null | awk '{print $0"\tgene"}' > DATA/peaks_gene.bed
+./annotate_peaks.sh
+```
 
-samtools view -b -f 16 merged_four_samples_sorted.bam > merged_samples_minus.bam
-samtools view -b -F 16 merged_four_samples_sorted.bam > merged_samples_plus.bam
-
-samtools index merged_samples_minus.bam
-samtools index merged_samples_plus.bam
-
-samtools bedcov peaks_ltr.bed merged_samples_minus.bam > peaks_ltr_coverage.minus.bed
-samtools bedcov peaks_ltr.bed merged_samples_plus.bam > peaks_ltr_coverage.plus.bed
-
-paste peaks_ltr_coverage.plus.bed peaks_ltr_coverage.minus.bed | 
-    awk '{print $0"\t+"$12-$24}' | 
-    awk 'BEGIN{FS=OFS"\t"} {gsub(/+-[0-9]*/, "-" $3)} 1 {gsub(/+[0-9]*/, "+" $3)} 1' | 
-    awk -F"\t" '{OFS=FS}{ $6=$25 ; print   }' | 
-    cut -f1-11 > peaks_ltr_strand.bed
-    
-paste peaks_gene_coverage.plus.bed peaks_gene_coverage.minus.bed |      
-    awk '{print $0"\t+"$12-$24}' |      
-    awk 'BEGIN{FS=OFS"\t"} {gsub(/+-[0-9]*/, "-" $3)} 1 {gsub(/+[0-9]*/, "+" $3)} 1' |      
-    awk -F"\t" '{OFS=FS}{ $6=$25 ; print   }' |      
-    cut -f1-11  > peaks_gene_strand.bed
-
-bedtools closest -a peaks_gene_strand.bed -b mart_export_sorted.bed -t first 2>/dev/null > peaks2gtf_gene.bed
-bedtools closest -a peaks_ltr_strand.bed -b mart_export_sorted.bed -t first 2>/dev/null > peaks2gtf_ltr.bed
-    
-samtools bedcov peaks_gene.bed merged_samples_minus.bam > peaks_gene_coverage.minus.bed
-samtools bedcov peaks_gene.bed merged_samples_plus.bam > peaks_gene_coverage.plus.bed
-
-cat peaks2gtf_gene.bed peaks2gtf_ltr.bed | grep -Pv "GL4|JH5" > peaks_annotate.bed
-bedtools sort -i peaks_annotate.bed > peaks_annotate_sorted.bed
+Creating a gtf file to create a library
+```
 
 ```
 
+
+Creating a corrected library for [spaceranger count](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count)
 ```
 spaceranger mkref --genome=oprm1_ref_without_strand --fasta=opt/refdata-gex-mm10-2020-A/fasta/genome.fa --genes=opt/refdata-gex-mm10-2020-A/genes/genes.gtf
 ```
 
 ```
-bedtools closest -a peaks_gene_strand.bed -b mart_export_sorted.bed 2>/dev/null > peaks2gtf_gene.bed
-
-
 peaks2gtf_gene.bed | tail +142 | awk '{sub("$", "+"$18)}; 1' | awk 'BEGIN{FS=OFS"\t"} {gsub(/-1\+/, "-" $18)} 1 {gsub(/1\+/, "+" $18)} 1' | awk '{print $0, $6==$17}' | sed 's/ /\t/' | cut -f18 | awk '{s+=$1} END {print s}'
 ```
 
-test
+spaceranger_anlysis_analysis.sh contain comeds to run spaceranger for four samples
 ```
- samtools index merged_four_samples_sorted.bam 
-  samtools view -b merged_four_samples_sorted.bam "chr10:7038567-7033897"
-  samtools index oprm.bam
-bedtools coverage -a oprm1.plus.bed -b oprm.bam -s
-bedtools coverage -a oprm1.minus.bed -b oprm.bam -s
+./spaceranger_anlysis_analysis.sh
+```
 
-paste oprm1.plus.coverage.bed oprm1.minus.coverage.bed | cut -f12,27 | awk '{print $1"\t"$2"\t+"$1-$2}' | awk 'BEGIN{FS=OFS"\t"} {gsub(/+-[0-9]*/, "-" $3)} 1 {gsub(/+[0-9]*/, "+" $3)} 1'
-
- samtools view -b -f 16 oprm.bam > oprm.minus.bam
- samtools view -b -F 16 oprm.bam > oprm.plus.bam
- samtools index oprm.plus.bam
- samtools index oprm.minus.bam 
- samtools bedcov oprm.bed oprm.plus.bam
- ```
 
 
