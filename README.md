@@ -93,8 +93,9 @@ Annotate peaks:
 ./annotate_peaks.sh
 ```
 
-Creating a gtf file to create a library
+Creating a gtf file to create a library using [bed2gtf_spaceranger.py]():
 ```
+python bed2gtf_spaceranger.py /path/peaks_annotate_sorted.bed 
 
 ```
 
