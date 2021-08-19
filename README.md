@@ -95,6 +95,21 @@ docker run -u 1003:1002 -v $PWD:/data/ ubuntu:macs3 macs3 callpeak -t /data/data
 -n merged_samples_sorted --outdir /data/data/macs3_results/sorted_bam
 ```
 
+Data for [variation_and_repeats.bed]() [download from ](http://genome.ucsc.edu/cgi-bin/hgTables) for:
+- clade: mammal
+- genome: Mouse
+- assembly: Dec. 2011 (GRC38/mm10)
+- group: Variation and Repeats
+- RepeatMasker
+
+Data for [mart_export_v102_mm10.bed]()  [download from](http://nov2020.archive.ensembl.org/biomart/martview/41fc32d9a3d3d980eaf9f536c5256275) with:
+- chromosome
+- gene start
+- gene end
+- gene stable ID
+- gene name
+- strand
+
 
 Run [annotate_peaks.sh]() which executes:
 - prepare files bed with ltr and gene peaks
@@ -128,6 +143,17 @@ Run [spaceranger_analysis.sh]() to execute analysis in spaceranger for four samp
 ```
 preprocessing/./spaceranger_anlysis.sh raw/corrected_reference/ corrected_
 ```
+
+Run [analysis_data]() which execute:
+- integrate data [according to ](https://satijalab.org/seurat/articles/integration_introduction.html)
+- find cluster for integrated data
+- read [peaks_annotate_sorted.bed]()
+- execute normalization data
+- exetute correlation for each feature
+- preapare data and function to visualisation data
+
+[spatial_genomics_shiny.R]() contain code for data visualization in the browser
+
 
 
 ```
