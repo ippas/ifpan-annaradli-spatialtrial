@@ -70,13 +70,21 @@ Ran `spaceranger aggr`on 4 samples - start 14:26 , finish 14:41.
 
 
 ### Analysis Mateusz
-Merging bam together:
+Run [spaceranger_analysis.sh]() to execute analysis in spaceranger for four samples:
 ```
-samtools merge /tmp/merged_four_samples.bam results/runs/S3647Nr1/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u5a05c0aed8/files/pos_sorted_single_sample.bam results/runs/S3647Nr2/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u6bdec0ddab/files/pos_sorted_single_sample.bam results/runs/S3647Nr3/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u6e48c0deab/files/pos_sorted_single_sample.bam results/runs/S3647Nr4/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u70d8c0def4/files/pos_sorted_single_sample.bam
+preprocessing/./spaceranger_anlysis.sh raw/opt/refdata-gex-mm10-2020-A/
 ```
 
+#### Prepare corrected reference
+Merging bam together:
 ```
-samtools sort /data/merged_four_samples.bam -o /DATA/merget_four_samples_sorted.bam
+samtools merge /data/merged_four_samples.bam results/runs/S3647Nr1/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u5a05c0aed8/files/pos_sorted_single_sample.bam data/spaceranger_results/S3647Nr2/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u6bdec0ddab/files/pos_sorted_single_sample.bam data/spaceranger_results/S3647Nr3/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u6e48c0deab/files/pos_sorted_single_sample.bam data/spaceranger_results/S3647Nr4/SPATIAL_RNA_COUNTER_CS/SPATIAL_RNA_COUNTER/_BASIC_SPATIAL_RNA_COUNTER/WRITE_POS_BAM/fork0/join-u70d8c0def4/files/pos_sorted_single_sample.bam
+```
+
+
+Sorting and indexing bam file:
+```
+samtools sort /data/merged_four_samples.bam -o /data/merget_four_samples_sorted.bam
 samtools index /data/merged_four_samples_sorted.bam
 
 ```
@@ -88,9 +96,19 @@ docker run -u 1003:1002 -v $PWD:/data/ ubuntu:macs3 macs3 callpeak -t /data/data
 ```
 
 
-Annotate peaks:
+Run [annotate_peaks.sh]() which executes:
+- prepare files bed with ltr and gene peaks
+- prepare files bam  file with minus and plus strand
+- indexing bam files
+- creating files for ltr with minus and plus coverage
+- creatinf files for gene with minus and plus coverage
+- assessment of strand for ltr and gene
+- prepare files bed to convert the format gtf for ltr and gene
+- connect files bed for ltr and gene
+- remove indirect files
+
 ```
-./annotate_peaks.sh
+preprocessing/./annotate_peaks.sh
 ```
 
 Creating a gtf file to create a library using [bed2gtf_spaceranger.py]():
@@ -102,17 +120,16 @@ python bed2gtf_spaceranger.py /path/peaks_annotate_sorted.bed
 
 Creating a corrected library for [spaceranger count](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count)
 ```
-spaceranger mkref --genome=oprm1_ref_without_strand --fasta=opt/refdata-gex-mm10-2020-A/fasta/genome.fa --genes=opt/refdata-gex-mm10-2020-A/genes/genes.gtf
+spaceranger mkref --genome=raw/corrected_reference --fasta=raw/opt/refdata-gex-mm10-2020-A/fasta/genome.fa --genes=data/genes.gtf
 ```
+
+
+Run [spaceranger_analysis.sh]() to execute analysis in spaceranger for four samples with corrected references:
+```
+preprocessing/./spaceranger_anlysis.sh raw/corrected_reference/ corrected_
+```
+
 
 ```
 peaks2gtf_gene.bed | tail +142 | awk '{sub("$", "+"$18)}; 1' | awk 'BEGIN{FS=OFS"\t"} {gsub(/-1\+/, "-" $18)} 1 {gsub(/1\+/, "+" $18)} 1' | awk '{print $0, $6==$17}' | sed 's/ /\t/' | cut -f18 | awk '{s+=$1} END {print s}'
 ```
-
-spaceranger_anlysis_analysis.sh contain comeds to run spaceranger for four samples
-```
-./spaceranger_anlysis_analysis.sh
-```
-
-
-
