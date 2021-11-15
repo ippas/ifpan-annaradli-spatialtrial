@@ -165,15 +165,13 @@ Checking if the peaks are overlapping the ends of the transcripts usig command:
 cat mart_export_v104_transcripts.tsv | 
     grep -vP "MT|GL|JH" | 
     tail +2 | 
-    awk '{if ($3 ==1) print "chr"$9"\t"$6 - 200"\t"$6"\t"$0; else print "chr"$9"\t"$5"\t"$5 + 200"\t"$0;}' 
+    awk '{if ($3 ==1) print "chr"$9"\t"$6 - 500"\t"$6"\t"$0; else print "chr"$9"\t"$5"\t"$5 + 500"\t"$0;}' > tmp_mart_export_v104_transcripts.tsv && 
+cat peaks_annotate_sorted.bed | 
+    awk '{if ($6=="+") print $1"\t"$2"\t"$3"\t"$0; else print $1"\t"$3"\t"$3+$5"\t"$0}' > tmp_peaks_annotate_sorted.bed && 
+bedtools intersect -wa -wb -a tmp_mart_export_v104_transcripts.tsv -b tmp_peaks_annotate_sorted.bed | 
+    awk 'BEGIN {OFS = "\t"}; {print $1, $4, $5, $7, $10, $19, $25, $31}' > transcript-list-intersect-peaks.tsv && 
+rm tmp_mart_export_v104_transcripts.tsv tmp_peaks_annotate_sorted.bed
 
+ 
 
-cat peaks_annotate_sorted.bed | awk '{if ($6=="+") print $1"\t"$2"\t"$3"\t"$0; else print $1"\t"$3"\t"$2"\t"$0}' > tmp_peaks_annotate_sorted.bed
-
-cat mart_export_v104_transcripts.tsv | grep -vP "MT|GL|JH"  | tail +2 | awk '{if ($3 ==1) print "chr"$9"\t"$6 - 500"\t"$6"\t"$0; else print "chr"$9"\t"$5"\t"$5 + 500"\t"$0;}' > tmp_mart_export_v104_transcripts.tsv
-
-cat peaks_annotate_sorted.bed |  awk '{if ($6=="+") print $1"\t"$2"\t"$3"\t"$0; else print $1"\t"$3"\t"$3+$5"\t"$0}' > tmp_peaks_annotate_sorted.bed 
-
-
-bedtools intersect -wa -wb -a tmp_mart_export_v104_transcripts.tsv -b tmp_peaks_annotate_sorted.bed
 ```
